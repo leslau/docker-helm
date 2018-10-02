@@ -1,5 +1,4 @@
 FROM alpine:3.8 as build
-MAINTAINER Mario Siegenthaler <mario.siegenthaler@linkyard.ch>
 
 RUN apk add --update --no-cache ca-certificates git
 
@@ -16,11 +15,9 @@ RUN curl -L http://storage.googleapis.com/kubernetes-helm/${FILENAME} > ${FILENA
     tar zxv -C /tmp -f ${FILENAME} && \
     rm -f ${FILENAME}
 
-
-# The image we keep
 FROM alpine:3.8
 
-RUN apk add --update --no-cache git ca-certificates
+RUN apk add --update --no-cache git ca-certificates bash
 
 COPY --from=build /tmp/linux-amd64/helm /bin/helm
 
